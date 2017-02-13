@@ -1,6 +1,8 @@
 #lang racket
 ; gui.rkt
-(require racket/gui racket/draw)
+(require
+ racket/gui
+ racket/draw)
 
 ; Create a new GUI.
 (define gui%
@@ -11,7 +13,7 @@
     ; Create the frame.
     (define frame
       (new frame%
-           [label "Daliclock"]
+           [label "Racket Survival"]
            [style '(no-resize-border)]))
 
     ; Create the canvas
@@ -22,6 +24,9 @@
            [min-height height]
            [stretchable-width width]
            [stretchable-height height]))
+
+    ; Create a bitmap on the canvas
+    (define dc (send canvas get-dc))
     
     ; Make everything visible
     (send frame show #t)
@@ -30,8 +35,10 @@
     (super-new)))
 
 (define gui (new gui%
-                 [width 400]
-                 [height 240]))
+     [width 400]
+     [height 240]))
 
-
+    (send (gui dc) draw-line
+      0 0    ; Start at (0, 0), the top-left corner
+      30 30) ; and draw to (30, 30), the bottom-right corner
     
